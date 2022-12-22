@@ -1,0 +1,26 @@
+# docker-compose.yml
+version: "3.9"
+
+#blue
+services:
+  api:
+    build: .
+    ports:
+      - "8081:8080"
+    container_name: spring-blue
+
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres:15.1
+  #   restart: always
+  #   ports:
+  #     - 5432:5432
+  #   networks:
+  #     - my-network
+  #   volumes:
+  #     - C:/postgresql/data/:/var/lib/postgresql/data
+  #   env_file:
+  #     - ./.env
+
+networks:
+  my-network:

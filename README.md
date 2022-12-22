@@ -1,69 +1,32 @@
-# 딜리버리랩 검수확인서 어드민 백엔드
+# Getting Started
 
-> ## 오더히어로
+### Reference Documentation
 
-- http://orderhero.co.kr/index.php
+For further reference, please consider the following sections:
 
-## Setup project with npm
+- [Official Gradle documentation](https://docs.gradle.org)
+- [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/)
+- [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/#build-image)
+- [Validation](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#io.validation)
+- [Spring Web](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#web)
+- [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#data.sql.jpa-and-spring-data)
+- [Spring Security](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#web.security)
 
-```bash
-# dev
-npm install
-npm run dev
+### Guides
 
-# testing
-npm run test
+The following guides illustrate how to use some features concretely:
 
-# production
-npm run build
-npm run preview
-```
+- [Validation](https://spring.io/guides/gs/validating-form-input/)
+- [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
+- [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
+- [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+- [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+- [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
+- [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
+- [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
 
-> ## How to run dev, pruduction with docker
+### Additional Links
 
-```bash
-# local
-docker-compose down
-docker-compose up --build -d
+These additional references should also help you:
 
-# pruduction
-docker-compose down
-docker-compose -f docker-compose.prod.yml up --build -d
-```
-
-> ## Coding Convention
-
-- AirBnB의 eslint + prettier를 사용
-- 선정 이유: 일반적으로 제일 많이 사용됨(AirBnB, Naver, )
-- 참고 링크: https://github.com/naver/eslint-config-naver/blob/master/STYLE_GUIDE.md
-
-> ## Commit Convention
-
-# 1. Commit Type
-
-- feat: 새로운 기능 추가
-- fix: 버그 수정
-- docs: 문서 수정
-- style: 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
-- refactor: 코드 리펙토링
-- test: 테스트 코드, 리펙토링 테스트 코드 추가
-- chore: 빌드 업무 수정, 패키지 매니저 수정
-
-# 2. Subject
-
-- 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않는다.
-- 과거시제를 사용하지 않고 명령어로 작성한다.
-  - “Fixed” —> “Fix"
-  - “Added” —> “Add"
-
-# 3. Example
-
-```rust
-feat: 멀티 셀렉트 박스 UI 개발
-fix: 멀티 셀렉트 박스 마지막 json이 표시되지 않는 버그 수정
-docs: Readme.md 커밋 컨벤션 수정 -> (더 자세하게 적으면 50~54줄 ~내용 수정)
-style: 멀티 셀렉트 박스 색상 변경 및 값 width에 반응형으로 width 설정
-refactor: 멀티 셀렉트 박스 이벤트 코드 event.js로 이동
-test: login.php 로그인 버튼 테스트 코드 작성
-chore: foobar-cookie^6.2.0 패키지에 추가
-```
+- [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
