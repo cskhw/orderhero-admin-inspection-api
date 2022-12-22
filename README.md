@@ -4,7 +4,7 @@
 
 - http://orderhero.co.kr/index.php
 
-## Setup proejct with npm
+## Setup project with npm
 
 ```bash
 # dev
