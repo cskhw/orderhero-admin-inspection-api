@@ -15,7 +15,7 @@ health_check() {
 	RESPONSE=$(curl -s http://127.0.0.1:$2)
 	# 헬스 체크
 	echo "$3 health check: $IDLE_PORT count: $1... "
-	echo $RESPONSE
+	echo "response: $RESPONSE"
 	if [ -n "$RESPONSE" ]; then
 		echo "$3 down"
 		docker-compose -p ${DOCKER_APP_NAME}-$3 -f docker-compose.green.yml down
