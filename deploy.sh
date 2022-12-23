@@ -32,7 +32,7 @@ fi
 # green이 실행중이면 blue up
 if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
-	sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
+	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
 	IDLE_PORT=8081
 	echo "blue up complete"
 
