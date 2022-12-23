@@ -10,7 +10,7 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ${{ secrets.AWS_CODEDEPLOY_GROUP_NAME }}
 
 jobs:
-  deploy:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
@@ -73,3 +73,16 @@ jobs:
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
+
+  run:
+    needs: deploy # build 후에 실행되도록 정의
+    runs-on: [admin-inspection-api-prod] # AWS ./configure에서 사용할 label명
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run deploy.sh
+        run: |
+          cd /home/ec2-user/dl-orderhero-admin-inspection-api
+          sudo chmod 777 ./deploy.sh
+          sudo chmod 777 ./down.sh
+          ./deploy.sh
