@@ -48,7 +48,6 @@ jobs:
       - name: Build with Gradle
 
         run: |
-          ./gradlew wrap
           ./gradlew build
 
       # 수정

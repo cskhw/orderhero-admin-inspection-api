@@ -37,7 +37,6 @@ out/
 .vscode/
 .env
 .gradle
-gradle
 
 ### Spring ###
 application.properties
