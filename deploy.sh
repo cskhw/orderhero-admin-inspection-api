@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ec2-user/dl-orderhero-admin-inspection
+cd /home/ec2-user/dl-orderhero-admin-inspection-api-prod
 
 DOCKER_APP_NAME=spring
 
