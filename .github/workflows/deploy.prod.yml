@@ -36,11 +36,12 @@ jobs:
       - name: Make .env
         run: |
           touch ./.env
-          echo "${{ secrets.DOTENV }}" > ./.env
+          echo "${{ secrets.DOTENV }}" > ./application.properties
         shell: bash
 
       - name: Make application.properties
         run: |
+
           cd ./src/main
           mkdir resources
           cd ./resources
@@ -88,7 +89,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run deploy.sh
         run: |
-          cd /home/ec2-user/dl-orderhero-admin-inspection-api-prod
+          cd /home/ec2-user/dl-orderhero-admin-inspection-api
           sudo chmod 777 ./deploy.sh
           sudo chmod 777 ./down.sh
           ./deploy.sh

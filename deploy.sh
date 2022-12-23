@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ec2-user/dl-orderhero-admin-inspection-api-prod
+cd /home/ec2-user/dl-orderhero-admin-inspection-api
 
 DOCKER_APP_NAME=spring
 
@@ -43,9 +43,10 @@ if [ -z "$EXIST_BLUE" ]; then
 	IDLE_PORT=8081
 	echo "blue up complete"
 
-	for RETRY_COUNT in {1..10}; do
+	for RETRY_COUNT in {1..20}; do
 		health_check $RETRY_COUNT $IDLE_PORT "green"
 	done
+
 	echo "Failed to health check. Please check docker container is running."
 
 # blue가 실행중이면 green up
@@ -55,7 +56,7 @@ else
 	IDLE_PORT=8082
 	echo "green up complete"
 
-	for RETRY_COUNT in {1..10}; do
+	for RETRY_COUNT in {1..20}; do
 		health_check $RETRY_COUNT $IDLE_PORT "blue"
 	done
 

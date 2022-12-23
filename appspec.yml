@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/dl-orderhero-admin-inspection-api-prod
+    destination: /home/ec2-user/dl-orderhero-admin-inspection-api
     overwrite: yes
 
 permissions:
