@@ -32,11 +32,11 @@ fi
 # green이 실행중이면 blue up
 if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
-	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
+	sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
 	IDLE_PORT=8081
 	echo "blue up complete"
 
-	for RETRY_COUNT in {1..50}; do
+	for RETRY_COUNT in {1..10}; do
 		health_check $RETRY_COUNT $IDLE_PORT "green"
 	done
 
@@ -47,7 +47,7 @@ else
 	IDLE_PORT=8082
 	echo "green up complete"
 
-	for RETRY_COUNT in {1..50}; do
+	for RETRY_COUNT in {1..10}; do
 		health_check $RETRY_COUNT $IDLE_PORT "blue"
 	done
 
