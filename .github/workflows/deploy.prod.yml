@@ -36,7 +36,7 @@ jobs:
       - name: Make .env
         run: |
           touch ./.env
-          echo "${{ secrets.DOTENV }}" > ./application.properties
+          echo "${{ secrets.DOTENV }}" > ./.env
         shell: bash
 
       - name: Make application.properties
