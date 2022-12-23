@@ -31,7 +31,7 @@ if [ -z "$EXIST_NGINX" ]; then
 	docker-compose -p nginx -f docker-compose.nginx.yml up --build -d
 fi
 
-# postgresql 콘테이너가 없으면 빌드
+# postgres 콘테이너가 없으면 빌드
 if [ -z "$EXIST_PG" ]; then
 	docker-compose -p postgres -f docker-compose.postgres.yml up --build -d
 fi
