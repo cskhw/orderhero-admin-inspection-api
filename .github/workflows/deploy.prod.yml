@@ -33,6 +33,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Make .env
+        run: |
+          touch ./.env
+          echo "${{ secrets.DOTENV }}" > ./.env
+        shell: bash
+
       - name: Make application.properties
         run: |
           cd ./src/main
