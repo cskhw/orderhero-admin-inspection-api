@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Make application.yml
+      - name: Make application.properties
         run: |
           cd ./src/main
           mkdir resources
@@ -46,7 +46,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+
+        run: |
+          ./gradlew wrap
+          ./gradlew build
 
       # 수정
       - name: Make zip file
