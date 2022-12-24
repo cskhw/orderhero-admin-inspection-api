@@ -39,7 +39,7 @@ out/
 .gradle
 
 ### Spring ###
-application.properties
+application.*
 
 ### DB ###
 /postgresql
