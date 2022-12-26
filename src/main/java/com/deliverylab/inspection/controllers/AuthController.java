@@ -40,7 +40,7 @@ import com.deliverylab.inspection.security.services.UserDetailsImpl;
 @CrossOrigin(origins = "*", maxAge = 3600)
 
 @RestController
-@RequestMapping("/dev/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -61,7 +61,7 @@ public class AuthController {
 	RefreshTokenService refreshTokenService;
 
 	// auth api 체크용
-	@GetMapping("/")
+	@GetMapping("/check")
 	public ResponseEntity<?> check() {
 		return ResponseEntity.ok("auth check.");
 	}

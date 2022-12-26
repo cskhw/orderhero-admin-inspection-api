@@ -18,20 +18,20 @@ import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/dev/api/log")
+@RequestMapping("/api/v1/log")
 public class LogContoller {
     private ArrayList<Log> logs = new ArrayList<Log>();
 
     @GetMapping("")
-    public ResponseEntity<String> guide(){
+    public ResponseEntity<String> guide() {
         return ResponseEntity.ok("Please use methods.");
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createLog(@Valid @RequestBody CreateLogRequest createLogRequest){
+    public ResponseEntity<?> createLog(@Valid @RequestBody CreateLogRequest createLogRequest) {
         Log log = new Log(
-            createLogRequest.getMsg(),
-            createLogRequest.getPath());
+                createLogRequest.getMsg(),
+                createLogRequest.getPath());
         this.logs.add(log);
         return ResponseEntity.ok(log);
     }
@@ -42,9 +42,9 @@ public class LogContoller {
         Log log = logs.stream().filter(l -> id.equals((l.getId()))).findAny().orElse(null);
 
         // log가 널이면 404
-        if(log == null){
+        if (log == null) {
             return ResponseEntity
-				.notFound().build();
+                    .notFound().build();
         }
 
         // log가 있으면 보내줌
@@ -52,7 +52,7 @@ public class LogContoller {
     }
 
     @GetMapping("/readall")
-    public ResponseEntity<ArrayList<Log>> readAllLog(){
+    public ResponseEntity<ArrayList<Log>> readAllLog() {
         return ResponseEntity.ok(this.logs);
     }
 }
