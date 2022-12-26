@@ -39,13 +39,13 @@ jobs:
           echo "${{ secrets.DOTENV }}" > ./.env
         shell: bash
 
-      - name: Make application.properties
+      - name: Make application.yml
         run: |
           cd ./src/main
           mkdir resources
           cd ./resources
-          touch ./application.properties
-          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./application.properties
+          touch ./application.yml
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./application.yml
         shell: bash
 
       - name: Grant execute permission for gradlew
