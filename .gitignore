@@ -40,6 +40,8 @@ out/
 
 ### Spring ###
 application.*
+application-.*
+*.sql
 /logs/*
 
 ### DB ###
