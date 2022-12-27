@@ -12,17 +12,17 @@ import lombok.Setter;
 @Getter
 @Table(name = "log")
 public class Log extends Base {
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
 	@NotBlank
 	private String msg;
 
-    @NotBlank
+	@NotBlank
 	private String path;
 
-	public Log(String msg, String path){
+	public Log(String msg, String path) {
 		super();
 		this.msg = msg;
 		this.path = path;
