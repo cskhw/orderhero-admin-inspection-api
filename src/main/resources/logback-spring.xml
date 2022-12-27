@@ -60,7 +60,7 @@
     </springProfile>
     <!--  dev 환경  -->
     <springProfile name="dev">
-        <root level="debug">
+        <root level="info">
             <!--     참조할 appender - CONSOLE -->
             <appender-ref ref="CONSOLE" />
         </root>
