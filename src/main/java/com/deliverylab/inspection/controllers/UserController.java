@@ -54,7 +54,18 @@ public class UserController {
 		return ResponseEntity.ok("auth check.");
 	}
 
-	// access_token 새로 발급
+	// access-token으로 유저 데이터 가져옴
+	@PostMapping("/me")
+	public ResponseEntity<?> me() {
+
+		// boolean isExists = userRepository.existsByUsername(username);
+		// if (isExists)
+		// return ResponseEntity.ok(username + " is Exists.");
+		// else
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not Exists!");
+	}
+
+	// user 생성
 	@PostMapping("/create")
 	public ResponseEntity<?> userCreate(@Valid @RequestBody TokenRefreshRequest request) {
 		String requestRefreshToken = request.getRefreshToken();
@@ -68,18 +79,6 @@ public class UserController {
 				})
 				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
 						"Refresh token is not in database!"));
-	}
-
-	// access-token으로 유저 데이터 가져옴
-	@PostMapping("/me")
-	public ResponseEntity<?> me() {
-
-		// boolean isExists = userRepository.existsByUsername(username);
-		// if (isExists)
-		// return ResponseEntity.ok(username + " is Exists.");
-		// else
-		// return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not Exists!");
-
 	}
 
 	// 아이디로 유저 조회
