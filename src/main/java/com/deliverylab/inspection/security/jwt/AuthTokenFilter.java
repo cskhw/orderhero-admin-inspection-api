@@ -41,6 +41,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         String newJwt = jwtUtils.generateTokenFromAuthentication(authentication);
 
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+            "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+
         response.setHeader("Authorization", "Bearer " + newJwt);
       }
     } catch (Exception e) {
