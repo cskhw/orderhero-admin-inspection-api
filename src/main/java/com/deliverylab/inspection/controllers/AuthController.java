@@ -23,14 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deliverylab.inspection.exception.TokenRefreshException;
 import com.deliverylab.inspection.models.ERole;
-import com.deliverylab.inspection.models.RefreshToken;
 import com.deliverylab.inspection.models.Role;
 import com.deliverylab.inspection.models.User;
-import com.deliverylab.inspection.payload.request.SignupRequest;
-import com.deliverylab.inspection.payload.request.TokenRefreshRequest;
-import com.deliverylab.inspection.payload.response.JwtResponse;
+import com.deliverylab.inspection.payload.request.auth.SigninRequest;
+import com.deliverylab.inspection.payload.request.auth.SignupRequest;
+import com.deliverylab.inspection.payload.request.auth.TokenRefreshRequest;
 import com.deliverylab.inspection.payload.response.MessageResponse;
-import com.deliverylab.inspection.payload.response.TokenRefreshResponse;
+import com.deliverylab.inspection.payload.response.auth.JwtResponse;
 import com.deliverylab.inspection.repository.RoleRepository;
 import com.deliverylab.inspection.repository.UserRepository;
 import com.deliverylab.inspection.security.jwt.JwtUtils;
@@ -66,7 +65,7 @@ public class AuthController {
 		return ResponseEntity.ok("auth check.");
 	}
 
-	// refresh_token 유효성
+	// access-token 유효성
 	@PostMapping("/valid")
 	public ResponseEntity<?> valid(@Valid @RequestBody TokenRefreshRequest request) {
 		String requestRefreshToken = request.getRefreshToken();
@@ -81,25 +80,28 @@ public class AuthController {
 	}
 
 	// access_token 새로 발급
-	@PostMapping("/refresh")
-	public ResponseEntity<?> refresh(@Valid @RequestBody TokenRefreshRequest request) {
-		String requestRefreshToken = request.getRefreshToken();
+	// @PostMapping("/refresh")
+	// public ResponseEntity<?> refresh(@Valid @RequestBody TokenRefreshRequest
+	// request) {
+	// String requestRefreshToken = request.getRefreshToken();
 
-		return refreshTokenService.findByToken(requestRefreshToken)
-				.map(refreshTokenService::verifyExpiration)
-				.map(RefreshToken::getUser)
-				.map(user -> {
-					String token = jwtUtils.generateTokenFromUsername(user.getUsername());
-					return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
-				})
-				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
-						"Refresh token is not in database!"));
-	}
+	// return refreshTokenService.findByToken(requestRefreshToken)
+	// .map(refreshTokenService::verifyExpiration)
+	// .map(RefreshToken::getUser)
+	// .map(user -> {
+	// String token = jwtUtils.generateTokenFromUsername(user.getUsername());
+	// return ResponseEntity.ok(new TokenRefreshResponse(token,
+	// requestRefreshToken));
+	// })
+	// .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+	// "Refresh token is not in database!"));
+	// }
 
 	// 로그인
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignupRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SigninRequest loginRequest) {
 
+		// authentication으로 토큰 생성
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
 						loginRequest.getPassword()));
@@ -113,11 +115,8 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-
 		return ResponseEntity.ok(new JwtResponse(
-				userDetails.getId(), jwt, refreshToken.getToken(),
-				userDetails.getUsername(), roles));
+				userDetails.getId(), userDetails.getUsername(), jwt, roles));
 	}
 
 	// 회원가입

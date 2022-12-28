@@ -1,8 +1,8 @@
-package com.deliverylab.inspection.payload.request;
+package com.deliverylab.inspection.payload.request.auth;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class TokenRefreshRequest {
+public class ValidRequest {
   @NotBlank
   private String refreshToken;
 

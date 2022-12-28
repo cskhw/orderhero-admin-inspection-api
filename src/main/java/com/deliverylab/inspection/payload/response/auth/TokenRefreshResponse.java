@@ -1,4 +1,4 @@
-package com.deliverylab.inspection.payload.response;
+package com.deliverylab.inspection.payload.response.auth;
 
 import lombok.Getter;
 import lombok.Setter;

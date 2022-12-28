@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deliverylab.inspection.exception.TokenRefreshException;
 import com.deliverylab.inspection.models.RefreshToken;
-import com.deliverylab.inspection.payload.request.SignupRequest;
-import com.deliverylab.inspection.payload.request.TokenRefreshRequest;
-import com.deliverylab.inspection.payload.response.TokenRefreshResponse;
+import com.deliverylab.inspection.payload.request.auth.SignupRequest;
+import com.deliverylab.inspection.payload.request.auth.TokenRefreshRequest;
+import com.deliverylab.inspection.payload.response.auth.TokenRefreshResponse;
 import com.deliverylab.inspection.repository.RoleRepository;
 import com.deliverylab.inspection.repository.UserRepository;
 import com.deliverylab.inspection.security.jwt.JwtUtils;

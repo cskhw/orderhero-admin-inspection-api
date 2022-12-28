@@ -1,7 +1,6 @@
 package com.deliverylab.inspection.controllers;
 
 import java.time.Instant;
-import java.util.Date;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deliverylab.inspection.common.utils.FileUtils;
 import com.deliverylab.inspection.models.Log;
-import com.deliverylab.inspection.payload.request.CreateLogRequest;
+import com.deliverylab.inspection.payload.request.log.CreateLogRequest;
 
 import jakarta.validation.Valid;
 

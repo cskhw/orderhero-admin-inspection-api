@@ -1,4 +1,4 @@
-package com.deliverylab.inspection.payload.request;
+package com.deliverylab.inspection.payload.request.log;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -10,6 +10,6 @@ public class CreateLogRequest {
 	@NotBlank
 	private String msg;
 
-    @NotBlank
+	@NotBlank
 	private String path;
 }
