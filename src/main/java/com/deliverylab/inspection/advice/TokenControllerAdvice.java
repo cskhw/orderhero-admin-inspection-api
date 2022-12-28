@@ -11,8 +11,6 @@ import org.springframework.web.context.request.WebRequest;
 import com.deliverylab.inspection.exception.ErrorMessage;
 import com.deliverylab.inspection.exception.TokenRefreshException;
 
-
-
 @RestControllerAdvice
 public class TokenControllerAdvice {
 

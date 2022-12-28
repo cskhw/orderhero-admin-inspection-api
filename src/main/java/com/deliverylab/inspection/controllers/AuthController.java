@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +23,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deliverylab.inspection.exception.TokenRefreshException;
 import com.deliverylab.inspection.models.ERole;
 import com.deliverylab.inspection.models.Role;
 import com.deliverylab.inspection.models.User;
 import com.deliverylab.inspection.payload.request.auth.SigninRequest;
 import com.deliverylab.inspection.payload.request.auth.SignupRequest;
-import com.deliverylab.inspection.payload.request.auth.TokenRefreshRequest;
+import com.deliverylab.inspection.payload.request.auth.ValidRequest;
 import com.deliverylab.inspection.payload.response.MessageResponse;
 import com.deliverylab.inspection.payload.response.auth.JwtResponse;
 import com.deliverylab.inspection.repository.RoleRepository;
@@ -38,8 +39,9 @@ import com.deliverylab.inspection.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 
+@ControllerAdvice
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -65,18 +67,14 @@ public class AuthController {
 		return ResponseEntity.ok("auth check.");
 	}
 
-	// access-token 유효성
+	// access-token 유효성 체크
 	@PostMapping("/valid")
-	public ResponseEntity<?> valid(@Valid @RequestBody TokenRefreshRequest request) {
-		String requestRefreshToken = request.getRefreshToken();
-
-		return refreshTokenService.findByToken(requestRefreshToken)
-				.map(refreshTokenService::verifyExpiration)
-				.map(token -> {
-					return ResponseEntity.ok("refreshToken is valid!");
-				})
-				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
-						"Refresh token is invalid."));
+	public ResponseEntity<?> valid(@Valid @RequestBody ValidRequest req) {
+		String accessToken = req.getAccessToken();
+		if (jwtUtils.validateJwtToken(accessToken))
+			return ResponseEntity.ok("Access token is valid!");
+		else
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
 
 	// access_token 새로 발급
@@ -121,11 +119,12 @@ public class AuthController {
 
 	// 회원가입
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+
+	public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+					.body("Error: Username is already taken!");
 		}
 
 		// Create new user's account

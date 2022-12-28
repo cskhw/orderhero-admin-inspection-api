@@ -1,8 +1,6 @@
 package com.deliverylab.inspection.security.jwt;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -12,12 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.http.MediaType;
 
 import com.deliverylab.inspection.security.services.UserDetailsServiceImpl;
 
@@ -45,13 +41,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         String newJwt = jwtUtils.generateTokenFromAuthentication(authentication);
 
-        response.setHeader("Authorization", newJwt);
-
-        filterChain.doFilter(request, response);
+        response.setHeader("Authorization", "Bearer " + newJwt);
       }
     } catch (Exception e) {
       log.error("Cannot set user authentication: {}", e);
     }
+    filterChain.doFilter(request, response);
   }
 
   // 헤더에서 jwt 토큰 가져옴

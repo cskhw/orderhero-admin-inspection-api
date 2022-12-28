@@ -13,7 +13,7 @@ import com.deliverylab.inspection.common.utils.FileUtils;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/monitor")
+@RequestMapping("/monitor")
 public class MonitorController {
 
     @GetMapping("/check")
