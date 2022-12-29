@@ -12,7 +12,7 @@ services:
     networks:
       - my-network
     volumes:
-      - ./logs:/logs
+      - ./logs:/app/logs
 
 networks:
   my-network:
