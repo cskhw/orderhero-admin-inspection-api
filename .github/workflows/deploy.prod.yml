@@ -89,4 +89,5 @@ jobs:
           cd /home/ec2-user/orderhero-admin-inspection-api
           sudo chmod 777 ./deploy.sh
           sudo chmod 777 ./down.sh
+          sudo chmod 777 ./logging.sh
           ./deploy.sh

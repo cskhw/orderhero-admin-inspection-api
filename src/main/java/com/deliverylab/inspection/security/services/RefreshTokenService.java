@@ -14,7 +14,6 @@ import com.deliverylab.inspection.models.RefreshToken;
 import com.deliverylab.inspection.repository.RefreshTokenRepository;
 import com.deliverylab.inspection.repository.UserRepository;
 
-
 @Service
 public class RefreshTokenService {
   @Value("${app.jwtRefreshExpirationMs}")
@@ -34,8 +33,8 @@ public class RefreshTokenService {
     RefreshToken refreshToken = new RefreshToken();
 
     refreshToken.setUser(userRepository.findById(userId).get());
-    // 리프레시 토큰 만료기간 15일로 설정
-    refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs * 15));
+    // 리프레시 토큰 만료기간 1일로 설정
+    refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
     refreshToken.setToken(UUID.randomUUID().toString());
 
     refreshToken = refreshTokenRepository.save(refreshToken);

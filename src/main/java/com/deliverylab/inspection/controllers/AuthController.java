@@ -1,5 +1,6 @@
 package com.deliverylab.inspection.controllers;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,7 +65,7 @@ public class AuthController {
 	// auth api 체크용
 	@GetMapping("/check")
 	public ResponseEntity<?> check() {
-		return ResponseEntity.ok("auth check.");
+		return ResponseEntity.ok("auth check." + Instant.now());
 	}
 
 	// access-token 유효성 체크

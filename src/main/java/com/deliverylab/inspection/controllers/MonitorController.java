@@ -1,7 +1,5 @@
 package com.deliverylab.inspection.controllers;
 
-import java.time.Instant;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
