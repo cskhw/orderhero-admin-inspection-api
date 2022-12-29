@@ -11,6 +11,8 @@ services:
       - "8082:8080"
     networks:
       - my-network
+    volumes:
+      - ./logs:/logs
 
 networks:
   my-network:

@@ -10,32 +10,17 @@ LOGDIR="./logs"
 ORIGINLOGFILENAME="access.log"
 LOGFILENAME="access.$(date +"%Y-%m-%d").log"
 
-logging() {
-	# 폴더 만들어줌
-	if ! [ -d $LOGDIR ]; then
-		mkdir $LOGDIR
-	fi
-
-	# 파일 만들어주고 권한줌
-	if ! [ -e $LOGDIR/$LOGFILENAME ]; then
-		\cp -f $LOGDIR/$ORIGINLOGFILENAME $LOGDIR/$LOGFILENAME
-		chmod 777 $LOGDIR/$LOGFILENAME
-		cat /dev/null >$LOGDIR/$ORIGINLOGFILENAME
-	fi
-
-	# 31일 초과한 파일들 삭제
-	find $LOGDIR/ -mtime +30 -delete
-}
-
 # green이 실행 중이면
 if [ -z "$EXIST_BLUE" ]; then
 	echo "logging on $DOCKER_APP_NAME-green with crontab"
 	docker exec -it $DOCKER_APP_NAME-green /bin/bash
 	logging
+	exit
 else
 	echo "logging on $DOCKER_APP_NAME-blue with crontab"
 	docker exec -it $DOCKER_APP_NAME-blue /bin/bash
 	logging
+	exit
 fi
 
 sleep 100
