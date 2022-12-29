@@ -29,12 +29,12 @@ logging() {
 
 # green이 실행 중이면
 if [ -z "$EXIST_BLUE" ]; then
-	echo "green"
+	echo "crontab on $DOCKER_APP_NAME-green"
 	docker exec -it $DOCKER_APP_NAME-green /bin/bash
 	logging
 else
-	echo "blue"
-	docker exec -it spring-blue /bin/bash
+	echo "crontab on $DOCKER_APP_NAME-blue"
+	docker exec -it $DOCKER_APP_NAME-blue /bin/bash
 	logging
 fi
 
