@@ -29,11 +29,11 @@ logging() {
 
 # green이 실행 중이면
 if [ -z "$EXIST_BLUE" ]; then
-	echo "crontab on $DOCKER_APP_NAME-green"
+	echo "logging on $DOCKER_APP_NAME-green with crontab"
 	docker exec -it $DOCKER_APP_NAME-green /bin/bash
 	logging
 else
-	echo "crontab on $DOCKER_APP_NAME-blue"
+	echo "logging on $DOCKER_APP_NAME-blue with crontab"
 	docker exec -it $DOCKER_APP_NAME-blue /bin/bash
 	logging
 fi
