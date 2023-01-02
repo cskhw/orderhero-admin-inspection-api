@@ -11,14 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ProductService {
+    @Autowired
     private ProductProducer productProducer;
 
-    @Autowired
-    public ProductService(ProductProducer productProducer) {
-        this.productProducer = productProducer;
-    }
-
-    public void sendMessage(ProductMessage message) {
+    public void sendMessage(ProductMessage message) throws Exception {
         log.info("[ProductService] send product to topic");
         productProducer.send(message);
     }
