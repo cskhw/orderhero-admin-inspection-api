@@ -52,52 +52,48 @@
 
     <!-- spring profile별 로그 설정 -->
     <!--  dev 환경  -->
-    <springProfile name="dev">
-        <root level="info">
+    <root level="info">
+        <springProfile name="dev">
             <!--     참조할 appender - CONSOLE -->
             <appender-ref ref="CONSOLE" />
-        </root>
-        <logger name="${PACKAGE_NAME}" level="info">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-    </springProfile>
-    <!--  real 환경  -->
-    <springProfile name="qa">
-        <root level="info">
+            <logger name="${PACKAGE_NAME}" level="error">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+        </springProfile>
+        <!--  real 환경  -->
+        <springProfile name="qa">
             <!--     참조할 appender - CONSOLE -->
             <appender-ref ref="CONSOLE" />
-        </root>
-        <logger name="${PACKAGE_NAME}" level="info">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-        <logger name="${PACKAGE_NAME}" level="warn">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-        <logger name="${PACKAGE_NAME}" level="error">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-    </springProfile>
-    <!--  real 환경  -->
-    <springProfile name="prod">
-        <root level="info">
+            <logger name="${PACKAGE_NAME}" level="info">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+            <logger name="${PACKAGE_NAME}" level="warn">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+            <logger name="${PACKAGE_NAME}" level="error">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+        </springProfile>
+        <!--  real 환경  -->
+        <springProfile name="prod">
             <!--     참조할 appender - CONSOLE -->
             <appender-ref ref="CONSOLE" />
-        </root>
-        <logger name="${PACKAGE_NAME}" level="info">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-        <logger name="${PACKAGE_NAME}" level="warn">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-        <logger name="${PACKAGE_NAME}" level="error">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-    </springProfile>
+            <logger name="${PACKAGE_NAME}" level="info">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+            <logger name="${PACKAGE_NAME}" level="warn">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+            <logger name="${PACKAGE_NAME}" level="error">
+                <!--     참조할 appender - FILE -->
+                <appender-ref ref="FILE" />
+            </logger>
+        </springProfile>
+    </root>
 </configuration>
