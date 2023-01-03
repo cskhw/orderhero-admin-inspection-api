@@ -8,12 +8,7 @@ services:
     restart: always
     ports:
       - 5432:5432
-    networks:
-      - my-network
     volumes:
       - ./postgresql/data:/var/lib/postgresql/data
     env_file:
       - ./.env
-
-networks:
-  my-network:

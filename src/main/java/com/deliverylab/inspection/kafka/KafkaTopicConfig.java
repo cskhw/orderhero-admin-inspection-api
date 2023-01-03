@@ -13,19 +13,19 @@ import java.util.Map;
 @Configuration
 public class KafkaTopicConfig {
 
-    @Value(value = "${kafka.bootstrapAddress}")
-    private String bootstrapAddress;
+    @Value(value = "${kafka.baseURL}")
+    private String baseURL;
 
     @Bean
-    public KafkaAdmin kafkaAdmin() {
+    KafkaAdmin kafkaAdmin() {
+        System.out.println("kafkaAdmin " + baseURL);
         Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, baseURL);
         return new KafkaAdmin(configs);
     }
 
     @Bean
-    public NewTopic productTopic() {
+    NewTopic productTopic() {
         return new NewTopic("product", 1, (short) 1);
     }
-
 }

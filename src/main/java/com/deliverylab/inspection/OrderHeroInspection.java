@@ -17,6 +17,7 @@ public class OrderHeroInspection {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderHeroInspection.class, args);
+
 	}
 
 }

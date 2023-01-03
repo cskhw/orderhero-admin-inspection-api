@@ -10,6 +10,8 @@ EXIST_BLUE=$(docker ps | grep spring-blue)
 EXIST_NGINX=$(docker ps | grep nginx)
 # 실행중인 postgres가 있는지
 EXIST_NGINX=$(docker ps | grep postgres)
+# 실행중인 kafka가 있는지
+EXIST_KAFKA=$(docker ps | grep kafka)
 
 health_check() {
 	RESPONSE=$(curl -s http://127.0.0.1:$2)
@@ -34,6 +36,13 @@ fi
 # postgres 콘테이너가 없으면 빌드
 if [ -z "$EXIST_PG" ]; then
 	docker-compose -p postgres -f docker-compose.postgres.yml up --build -d
+fi
+
+# kafka 콘테이너가 없으면 빌드
+if [ -z "$EXIST_KAFKA" ]; then
+	rm -rf ./logs/kafka1
+	rm -rf ./logs/kafka2
+	docker-compose -p kafka -f docker-compose.kafka.yml up --build -d
 fi
 
 # green이 실행중이면 blue up
