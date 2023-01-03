@@ -51,13 +51,6 @@
     </appender>
 
     <!-- spring profile별 로그 설정 -->
-    <!--  local 환경  -->
-    <springProfile name="local">
-        <root level="info">
-            <!--     참조할 appender - CONSOLE -->
-            <appender-ref ref="CONSOLE" />
-        </root>
-    </springProfile>
     <!--  dev 환경  -->
     <springProfile name="dev">
         <root level="info">
@@ -65,14 +58,6 @@
             <appender-ref ref="CONSOLE" />
         </root>
         <logger name="${PACKAGE_NAME}" level="info">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-        <logger name="${PACKAGE_NAME}" level="warn">
-            <!--     참조할 appender - FILE -->
-            <appender-ref ref="FILE" />
-        </logger>
-        <logger name="${PACKAGE_NAME}" level="error">
             <!--     참조할 appender - FILE -->
             <appender-ref ref="FILE" />
         </logger>

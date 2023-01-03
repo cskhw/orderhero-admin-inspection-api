@@ -9,7 +9,7 @@ import com.deliverylab.inspection.payload.request.ProductMessage;
 @Slf4j
 @Service
 public class ProductListener {
-    @KafkaListener(topics = "product", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = "product", containerFactory = "productKafkaListenerContainerFactory")
     public void newProductListener(ProductMessage product) {
         log.info("Get request from Front 'save product'" + product.toString());
     }

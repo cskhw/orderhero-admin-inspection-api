@@ -15,8 +15,7 @@ public class ProductService {
     private ProductProducer productProducer;
 
     public void sendMessage(ProductMessage message) throws Exception {
-        log.info("[ProductService] send product to topic");
+        log.info("[ProductService] send product to topic, message: " + message.toString());
         productProducer.send(message);
     }
-
 }

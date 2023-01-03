@@ -42,8 +42,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String newJwt = jwtUtils.generateTokenFromAuthentication(authentication);
 
         // 서버로 요청 시 사용할 수 있는 헤더
-        response.setHeader("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
-            "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        response.setHeader("Access-Control-Allow-Headers",
+            "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+                "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
         // 브라우저에서 보이는 헤더
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
         // 인증토큰 넣어줌

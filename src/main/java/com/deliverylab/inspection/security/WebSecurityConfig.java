@@ -89,6 +89,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
         .requestMatchers("/test/**").permitAll()
         .requestMatchers("/log/**").permitAll()
+        .requestMatchers("/kafka/log/**").permitAll()
         .anyRequest().authenticated();
 
     http.authenticationProvider(authenticationProvider());

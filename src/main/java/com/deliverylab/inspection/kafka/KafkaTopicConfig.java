@@ -28,4 +28,9 @@ public class KafkaTopicConfig {
     NewTopic productTopic() {
         return new NewTopic("product", 1, (short) 1);
     }
+
+    @Bean
+    NewTopic logTopic() {
+        return new NewTopic("log", 1, (short) 1);
+    }
 }
