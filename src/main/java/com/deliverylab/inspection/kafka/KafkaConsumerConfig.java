@@ -10,7 +10,7 @@ import com.deliverylab.inspection.kafka.messages.LogMessage;
 
 @Configuration
 public class KafkaConsumerConfig {
-    @Value(value = "${kafka.baseURL}")
+    @Value(value = "${kafka.bootstrapAddress}")
     private String baseURL;
 
     @Autowired

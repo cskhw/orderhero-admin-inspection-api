@@ -21,7 +21,7 @@ import java.util.Map;
 @Slf4j
 @Configuration
 public class KafkaFactory<T extends KafkaMessage> {
-    @Value(value = "${kafka.baseURL}")
+    @Value(value = "${kafka.bootstrapAddress}")
     private String baseURL;
 
     /**

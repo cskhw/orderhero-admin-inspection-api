@@ -28,5 +28,4 @@ public class LogProducer {
             return null;
         });
     }
-
 }
