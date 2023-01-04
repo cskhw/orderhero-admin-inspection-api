@@ -46,6 +46,22 @@ jobs:
           echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
         shell: bash
 
+      - name: Make schema.sql
+        run: |
+          mkdir ./src/main/resources/db
+          cd ./src/main/resources/db
+          touch ./schema.sql
+          echo "${{ secrets.SCHEMA_SQL }}" > ./schema.sql
+        shell: bash
+
+      - name: Make data.sql
+        run: |
+          mkdir ./src/main/resources/db
+          cd ./src/main/resources/db
+          touch ./data.sql
+          echo "${{ secrets.DATA_SQL }}" > ./data.sql
+        shell: bash
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
