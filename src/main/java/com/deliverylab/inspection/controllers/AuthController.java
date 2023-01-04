@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deliverylab.inspection.models.ERole;
 import com.deliverylab.inspection.models.Role;
 import com.deliverylab.inspection.models.User;
+import com.deliverylab.inspection.models.enums.ERole;
 import com.deliverylab.inspection.payload.request.auth.SigninRequest;
 import com.deliverylab.inspection.payload.request.auth.SignupRequest;
 import com.deliverylab.inspection.payload.request.auth.ValidRequest;

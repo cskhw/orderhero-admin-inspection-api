@@ -1,4 +1,4 @@
-package com.deliverylab.inspection.models;
+package com.deliverylab.inspection.models.enums;
 
 public enum ERole {
   ROLE_ADMIN,

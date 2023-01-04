@@ -7,7 +7,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
-import com.deliverylab.inspection.payload.request.ProductMessage;
+import com.deliverylab.inspection.kafka.messages.LogMessage;
 
 import java.io.Serializable;
 
@@ -15,17 +15,18 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Component
 public class LogProducer {
-    final String productTopic = "log";
+    final String logTopic = "log";
 
     @Autowired
     private KafkaTemplate<String, Serializable> kafkaTemplate;
 
-    public void send(ProductMessage message) throws Exception {
-        kafkaTemplate.send(productTopic, message).thenAcceptAsync((SendResult<String, Serializable> result) -> {
-            log.info("Message sent successfully with offset = {}", result.getRecordMetadata().offset());
+    public void send(LogMessage msg) throws Exception {
+        kafkaTemplate.send(logTopic, msg).thenAcceptAsync((SendResult<String, Serializable> result) -> {
+            log.info("kafka/log/create successfully with offset = " + result.getRecordMetadata().offset());
         }).exceptionally(throwable -> {
             System.out.println("exception occurred!!");
             return null;
         });
     }
+
 }

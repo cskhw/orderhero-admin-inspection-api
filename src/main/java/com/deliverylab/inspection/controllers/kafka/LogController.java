@@ -1,7 +1,6 @@
-package com.deliverylab.inspection.controllers;
+package com.deliverylab.inspection.controllers.kafka;
 
-import java.time.Instant;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,37 +11,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deliverylab.inspection.common.utils.FileUtils;
+import com.deliverylab.inspection.kafka.messages.LogMessage;
 import com.deliverylab.inspection.models.Log;
 import com.deliverylab.inspection.payload.request.kafka.log.CreateLogRequest;
+import com.deliverylab.inspection.services.LogService;
 
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/log")
-public class LogContoller {
+@RequestMapping("/kafka/log")
+public class LogController {
+
+    @Autowired
+    LogService logService;
 
     @GetMapping("/check")
     public ResponseEntity<String> check() {
         return ResponseEntity.ok("Please use methods.");
     }
 
-    // 로그 생성해서 로그 파일에 저장
+    // 로그 생성
     @PostMapping("/create")
     public ResponseEntity<?> createLog(@Valid @RequestBody CreateLogRequest createLogRequest) throws Exception {
         Log logData = new Log(
                 createLogRequest.getMsg(),
                 createLogRequest.getPath());
 
-        String path = "path: [" + logData.getPath() + "] ";
-        String date = "date: [" + Instant.now().toString() + "] ";
-        String msg = "msg: [" + logData.getMsg() + "]";
-
-        // 로그 저장할 포맷 만들어줌
-        String logStr = path + date + msg + "; \n";
-
-        FileUtils.addFileWriter("./logs", "access.log", logStr);
-
+        // 카프카로 데이터 전송
+        logService.sendMessage(new LogMessage(logData, "add"));
         return ResponseEntity.ok(logData);
     }
 

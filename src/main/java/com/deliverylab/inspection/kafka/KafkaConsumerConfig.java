@@ -6,25 +6,33 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.deliverylab.inspection.payload.request.ProductMessage;
+import com.deliverylab.inspection.kafka.messages.LogMessage;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Configuration
-@EnableKafka
 public class KafkaConsumerConfig {
     @Value(value = "${kafka.baseURL}")
     private String baseURL;
 
+    /**
+     * 컨슈머 설정
+     * 
+     * BOOTSTRAP_SERVERS_CONFIG: kafka 첫번째 브로커 URL
+     * KEY_DESERIALIZER_CLASS_CONFIG: 키 역직렬화 방법
+     * VALUE_DESERIALIZER_CLASS_CONFIG: 값 역직렬화 방법
+     * GROUP_ID_CONFIG: 그룹 ID
+     * 
+     * @return {Map<String, Object>}
+     */
     public Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, baseURL);
@@ -34,27 +42,28 @@ public class KafkaConsumerConfig {
         return props;
     }
 
-    // https://github.com/3jieun3/PJT_Chatting/blob/d7af7fdd8358d1c461beb042eda26ef8a31e899c/BE/chatting/src/main/java/com/je/chatting/_v3_kafka/config/KafkaConsumerConfig.java
-    public ConsumerFactory<String, ProductMessage> productConsumerFactory() {
-        Map<String, Object> config = consumerConfigs();
-
+    // 기본 타입 매퍼 만들어줌
+    public DefaultJackson2JavaTypeMapper typeMapper() {
         DefaultJackson2JavaTypeMapper typeMapper = new DefaultJackson2JavaTypeMapper();
         Map<String, Class<?>> classMap = new HashMap<>();
         typeMapper.setIdClassMapping(classMap);
         typeMapper.addTrustedPackages("*");
-
-        JsonDeserializer<ProductMessage> jsonDeserializer = new JsonDeserializer<>(ProductMessage.class);
-        jsonDeserializer.setTypeMapper(typeMapper);
-        jsonDeserializer.setUseTypeMapperForKey(true);
-
-        return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), jsonDeserializer);
+        return typeMapper;
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, ProductMessage> productKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, ProductMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(productConsumerFactory());
-        log.info("Configure concurrent consumer Kafka");
+    public ConcurrentKafkaListenerContainerFactory<String, LogMessage> logKafkaListenerContainerFactory() {
+        // 컨슈머 역직렬화 타입 설정
+        JsonDeserializer<LogMessage> jsonDeserializer = new JsonDeserializer<>(LogMessage.class);
+        jsonDeserializer.setTypeMapper(typeMapper());
+        jsonDeserializer.setUseTypeMapperForKey(true);
+
+        ConsumerFactory<String, LogMessage> logConsumerFactory = new DefaultKafkaConsumerFactory<>(consumerConfigs(),
+                new StringDeserializer(), jsonDeserializer);
+
+        ConcurrentKafkaListenerContainerFactory<String, LogMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(logConsumerFactory);
+        log.info("Kafka log consumer configure");
         return factory;
     }
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Table(name = "log")
+@Table(name = "logs")
 public class Log extends Base {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +21,9 @@ public class Log extends Base {
 
 	@NotBlank
 	private String path;
+
+	public Log() {
+	}
 
 	public Log(String msg, String path) {
 		super();

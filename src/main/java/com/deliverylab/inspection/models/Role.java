@@ -1,5 +1,7 @@
 package com.deliverylab.inspection.models;
 
+import com.deliverylab.inspection.models.enums.ERole;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
