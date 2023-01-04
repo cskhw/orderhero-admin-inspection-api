@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deliverylab.inspection.common.utils.FileUtils;
 import com.deliverylab.inspection.kafka.messages.LogMessage;
 import com.deliverylab.inspection.models.Log;
+import com.deliverylab.inspection.models.enums.EAction;
 import com.deliverylab.inspection.payload.request.kafka.log.CreateLogRequest;
 import com.deliverylab.inspection.services.LogService;
 
@@ -39,7 +40,7 @@ public class LogController {
                 createLogRequest.getPath());
 
         // 카프카로 데이터 전송
-        logService.sendMessage(new LogMessage(logData, "add"));
+        logService.sendMessage(new LogMessage(logData, EAction.CREATE));
         return ResponseEntity.ok(logData);
     }
 
