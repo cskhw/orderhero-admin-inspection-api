@@ -56,7 +56,6 @@ jobs:
 
       - name: Make data.sql
         run: |
-          mkdir ./src/main/resources/db
           cd ./src/main/resources/db
           touch ./data.sql
           echo "${{ secrets.DATA_SQL }}" > ./data.sql
