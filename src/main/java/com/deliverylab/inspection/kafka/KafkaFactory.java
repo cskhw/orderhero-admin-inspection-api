@@ -64,7 +64,7 @@ public class KafkaFactory<T extends KafkaMessage> {
 
         ConcurrentKafkaListenerContainerFactory<String, T> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(logConsumerFactory);
-        log.info("Kafka log consumer configure" + type.toString());
+        log.info("Kafka log consumer configure " + type.toString());
         return factory;
     }
 }
