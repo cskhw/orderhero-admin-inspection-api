@@ -14,7 +14,7 @@ public class LogService {
     private LogProducer logProducer;
 
     public void sendMessage(LogMessage msg) throws Exception {
-        log.info("[ProductService] send product to topic, message: " + msg.toString());
+        log.info("[LogService] send log to topic, message: " + msg.toString());
         logProducer.send(msg);
     }
 }

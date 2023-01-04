@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+
 import com.deliverylab.inspection.kafka.messages.LogMessage;
 
 @Configuration
@@ -13,10 +14,10 @@ public class KafkaConsumerConfig {
     private String baseURL;
 
     @Autowired
-    private KafkaFactory kafkaFactory;
+    private KafkaFactory<LogMessage> logKafkaFactory;
 
     @Bean
     ConcurrentKafkaListenerContainerFactory<String, LogMessage> logKafkaListenerContainerFactory() throws Exception {
-        return kafkaFactory.kafkaListenerContainerFactory(LogMessage.class);
+        return logKafkaFactory.kafkaListenerContainerFactory(LogMessage.class);
     }
 }

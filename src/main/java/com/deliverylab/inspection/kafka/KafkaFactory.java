@@ -13,12 +13,14 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import com.deliverylab.inspection.kafka.messages.KafkaMessage;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Configuration
-public class KafkaFactory<T> {
+public class KafkaFactory<T extends KafkaMessage> {
     @Value(value = "${kafka.baseURL}")
     private String baseURL;
 
