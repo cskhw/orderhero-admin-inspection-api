@@ -32,6 +32,9 @@ dependencies {
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 	// hot-reload-devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	// AWS java sdk
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.11.811'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -8,6 +8,7 @@ import java.io.RandomAccessFile;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -126,5 +127,11 @@ public class FileUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static File multipartFileToFile(MultipartFile multipartFile) throws IOException {
+        File file = new File(multipartFile.getOriginalFilename());
+        multipartFile.transferTo(file);
+        return file;
     }
 }

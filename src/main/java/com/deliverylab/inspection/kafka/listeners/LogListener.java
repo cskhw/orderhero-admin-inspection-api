@@ -2,8 +2,6 @@ package com.deliverylab.inspection.kafka.listeners;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.Instant;
-
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +21,7 @@ public class LogListener {
 
         // 로그 스트링 만들고 파일에 add
         if (action == EAction.CREATE) {
-            String path = "path: [" + logData.getPath() + "] ";
-            String date = "date: [" + Instant.now().toString() + "] ";
-            String message = "msg: [" + logData.getMsg() + "]";
-
-            // 로그 스트링 포맷
-            String logStr = path + date + message + "; \n";
-
+            String logStr = logData.toString();
             FileUtils.addFileWriter("./logs", "access.log", logStr);
         }
     }
