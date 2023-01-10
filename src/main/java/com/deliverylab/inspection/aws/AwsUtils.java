@@ -25,11 +25,11 @@ public class AwsUtils {
     private String bucketName;
 
     // S3에 파일 업로드
-    public PutObjectResult upload(MultipartFile file) throws Exception {
+    public PutObjectResult upload(String path, MultipartFile file) throws Exception {
         try {
             // 파일 이름, 업로드
             String fileName = file.getOriginalFilename();
-            String keyName = "public/images/" + fileName;
+            String filePath = path + fileName;
             InputStream inputStream = file.getInputStream();
 
             // 메타데이터 설정
@@ -40,7 +40,7 @@ public class AwsUtils {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
             return s3Client
-                    .putObject(new PutObjectRequest(bucketName, keyName, byteArrayInputStream, metadata));
+                    .putObject(new PutObjectRequest(bucketName, filePath, byteArrayInputStream, metadata));
         } catch (Exception e) {
             e.printStackTrace();
         }

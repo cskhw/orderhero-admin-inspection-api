@@ -11,9 +11,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateLogRequest {
-    @NotBlank
-    private String msg;
+    String userId;
 
     @NotBlank
     private String path;
+
+    @NotBlank
+    String url;
+
+    @NotBlank
+    String ip;
+
+    String event;
+
 }

@@ -22,7 +22,7 @@ public class MonitorController {
     // 로그 전부 읽어오기
     @GetMapping("/read")
     public ResponseEntity<String> readLog() throws Exception {
-        String logsData = FileUtils.fileReader("./logs/access.log");
+        String logsData = FileUtils.fileReader("./logs/access.json");
 
         return ResponseEntity.ok(logsData);
     }
@@ -30,7 +30,7 @@ public class MonitorController {
     // 로그 뒤에서 부터 읽기
     @GetMapping("/tail/{offset}")
     public ResponseEntity<String> tailLog(@PathVariable int offset) throws Exception {
-        String logsData = FileUtils.fileReaderOnTail("./logs/access.log", offset);
+        String logsData = FileUtils.fileReaderOnTail("./logs/access.json", offset);
 
         return ResponseEntity.ok(logsData);
     }

@@ -2,9 +2,11 @@ package com.deliverylab.inspection.common.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Component;
@@ -129,9 +131,15 @@ public class FileUtils {
         return "";
     }
 
-    public static File multipartFileToFile(MultipartFile multipartFile) throws IOException {
-        File file = new File(multipartFile.getOriginalFilename());
-        multipartFile.transferTo(file);
-        return file;
+    public Optional<File> multipartFileToFile(MultipartFile file) throws IOException {
+        File convertFile = new File(file.getOriginalFilename());
+        if (convertFile.createNewFile()) {
+            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
+                fos.write(file.getBytes());
+            }
+            return Optional.of(convertFile);
+        }
+
+        return Optional.empty();
     }
 }

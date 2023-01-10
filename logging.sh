@@ -7,8 +7,8 @@ EXIST_BLUE=$(docker ps | grep spring-blue)
 
 DOCKER_APP_NAME=spring
 LOGDIR="./logs"
-ORIGINLOGFILENAME="access.log"
-LOGFILENAME="access.$(date +"%Y-%m-%d").log"
+ORIGINLOGFILENAME="access.json"
+LOGFILENAME="access.$(date +"%Y-%m-%d").json"
 
 echo "logging"
 
@@ -21,6 +21,8 @@ fi
 if ! [ -e $LOGDIR/$ORIGINLOGFILENAME ]; then
 	touch $LOGDIR/$ORIGINLOGFILENAME
 	chmod 777 $LOGDIR/$LOGFILENAME
+	echo "[" >>$LOGDIR/$ORIGINLOGFILENAME
+	echo "]" >>$LOGDIR/$ORIGINLOGFILENAME
 fi
 
 # 날짜 로그 파일 생성
@@ -28,6 +30,8 @@ if ! [ -e $LOGDIR/$LOGFILENAME ]; then
 	\cp -f $LOGDIR/$ORIGINLOGFILENAME $LOGDIR/$LOGFILENAME
 	chmod 777 $LOGDIR/$LOGFILENAME
 	cat /dev/null >$LOGDIR/$ORIGINLOGFILENAME
+	echo "[" >>$LOGDIR/$ORIGINLOGFILENAME
+	echo "]" >>$LOGDIR/$ORIGINLOGFILENAME
 fi
 
 # 31일 초과한 파일들 삭제

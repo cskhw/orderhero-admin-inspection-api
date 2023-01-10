@@ -50,7 +50,7 @@ public class TestController {
 
 	@PostMapping("/upload-image")
 	public ResponseEntity<?> uploadImage(@Valid @RequestParam("image") MultipartFile file) throws Exception {
-		awsUtils.upload(file);
+		awsUtils.upload("public/images/", file);
 
 		return ResponseEntity.created(new URI(file.getOriginalFilename())).build();
 	}
